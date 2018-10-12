@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 
-import { MongoDbConnectionProvider } from './providers/mongo_db_connection.provider';
-import { ParticipantModelProvider } from './providers/participant.provider';
-import { StudyModelProvider } from './providers/study.provider';
-import { CommentModelProvider } from './providers/comment.provider';
+import { ConnectionProvider } from './connection.provider';
+import { ParticipantModelProvider } from './entities/participant.entity';
+import { StudyModelProvider } from './entities/study.entity';
+import { CommentModelProvider } from './entities/comment.entity';
 
 @Module({
   providers: [
-    MongoDbConnectionProvider,
+    ConnectionProvider,
     ParticipantModelProvider,
     StudyModelProvider,
     CommentModelProvider,
