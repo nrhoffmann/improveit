@@ -1,5 +1,4 @@
-import { Get, Controller, Render, Post, Res } from '@nestjs/common';
-
+import { Get, Controller, Render, Param } from '@nestjs/common';
 @Controller()
 export class AppController {
 
@@ -7,5 +6,13 @@ export class AppController {
   @Render('index')
   root() {
 
+  }
+
+  @Get(':slug')
+  @Render('page')
+  page(@Param('slug') slug) {
+    return {
+      slug,
+    };
   }
 }
