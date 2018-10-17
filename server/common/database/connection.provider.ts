@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { ConnectionToken } from 'common/constants';
+import { ConnectionToken } from 'server/common/constants';
 
 export const ConnectionProvider = {
   provide: ConnectionToken,

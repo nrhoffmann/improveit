@@ -1,6 +1,6 @@
 import { Schema, Document, Connection } from 'mongoose';
 
-import { ParticipantModelToken, ConnectionToken } from 'common/constants';
+import { ParticipantModelToken, ConnectionToken } from 'server/common/constants';
 
 const ParticipantSchema = new Schema({
   first_name: {

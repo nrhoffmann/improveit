@@ -1,0 +1,2 @@
+export type RequestHandler = (req: any, res: any, query: any) => Promise<void>;
+export type Renderer = (req: any, res: any, view: string, params?: any) => Promise<void>;

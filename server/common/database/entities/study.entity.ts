@@ -1,6 +1,6 @@
 import { Schema, Document, Connection } from 'mongoose';
 
-import { ConnectionToken, StudyModelToken } from 'common/constants';
+import { ConnectionToken, StudyModelToken } from 'server/common/constants';
 
 const StudySchema = new Schema({
   name: {

@@ -1,6 +1,6 @@
 import { Schema, Document, Connection } from 'mongoose';
 
-import { ConnectionToken, CommentModelToken } from 'common/constants';
+import { ConnectionToken, CommentModelToken } from 'server/common/constants';
 
 const { ObjectId } = Schema.Types;
 

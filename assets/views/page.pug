@@ -27,7 +27,7 @@ html(lang="en")
         | Duis viverra pulvinar urna, quis lacinia tellus commodo sed.
         | Aliquam iaculis, elit at maximus volutpat, lacus turpis egestas tellus, eget consequat nunc velit nec tortor.
       hr
-      form#petition(action="", method="POST")
+      form#petition
         .row
           .one-third.column
             label(for="first-name") First Name
@@ -42,8 +42,18 @@ html(lang="en")
         button.g-recaptcha.button-primary(data-sitekey="6LdmqA4UAAAAACZgLVkjkCnSMdccwEuf7tVJguZb", data-callback="onSubmit") Sign Petition
     footer
       script(src="https://www.google.com/recaptcha/api.js", async, defer)
+      script(src="https://unpkg.com/axios/dist/axios.min.js")
       script.
         function onSubmit(token) {
+          axios({
+            method: 'post',
+            url: 'api/contributor',
+            data: new FormData(document.getElementById('petition')),
+            config: { headers: {'Content-Type': 'multipart/form-data' }},
+          }).then(res => {
+            console.log('res', res);
+          }).catch(err => {
+            console.error('err', err);
+          });
           console.log('token', token);
-          document.getElementById('petition').submit();
         }
