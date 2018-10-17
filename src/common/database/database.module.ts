@@ -1,21 +1,21 @@
 import { Module } from '@nestjs/common';
 
 import { ConnectionProvider } from './connection.provider';
-import { ParticipantModelProvider } from './entities/participant.entity';
-import { StudyModelProvider } from './entities/study.entity';
-import { CommentModelProvider } from './entities/comment.entity';
+import { SignatureModelProvider } from './entities/signature.entity';
+import { PageModelProvider } from './entities/page.entity';
+import { SuggestionModelProvider } from './entities/suggestion.entity';
 
 @Module({
   providers: [
     ConnectionProvider,
-    ParticipantModelProvider,
-    StudyModelProvider,
-    CommentModelProvider,
+    SignatureModelProvider,
+    PageModelProvider,
+    SuggestionModelProvider,
   ],
   exports: [
-    ParticipantModelProvider,
-    StudyModelProvider,
-    CommentModelProvider,
+    SignatureModelProvider,
+    PageModelProvider,
+    SuggestionModelProvider,
   ],
 })
 export class DatabaseModule {}
