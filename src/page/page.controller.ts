@@ -1,6 +1,6 @@
-import { Get, Controller, Render } from '@nestjs/common';
+import { Get, Controller, Render, Body } from '@nestjs/common';
 
-@Controller()
+@Controller('api/pages')
 export class PageController {
 
   @Get('lcm-meals')
@@ -8,4 +8,16 @@ export class PageController {
   root() {
 
   }
+
+  @Post('sign')
+  sign(@Body() request: SignPageRequest) {
+
+  }
+}
+
+class SignPageRequest {
+  readonly slug: string;
+  readonly lName: string;
+  readonly fName: string;
+  readonly email: string;
 }
