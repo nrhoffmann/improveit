@@ -1,9 +1,7 @@
+import { Page } from './page';
 import { Injectable } from '@nestjs/common';
-import { Page } from 'common/database/entities/page.entity';
-import { Signature } from 'common/database/entities/signature.entity';
 
 @Injectable()
-export class PageService {
-  private boundInstance: Page;
-  
+export abstract class PageService {
+  abstract findBySlug(slug: string): Page;
 }

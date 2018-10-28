@@ -1,23 +1,13 @@
-import { Get, Controller, Render, Body } from '@nestjs/common';
+import { Get, Controller, Render, Body, Param } from '@nestjs/common';
+import { PageService } from './page.service';
 
-@Controller('api/pages')
+@Controller('pages')
 export class PageController {
 
-  @Get('lcm-meals')
-  @Render('page')
-  root() {
+  constructor(private readonly pages: PageService) {}
 
+  @Get(':slug')
+  single(@Param('slug') slug: string) {
+    return this.pages.findBySlug(slug);
   }
-
-  @Post('sign')
-  sign(@Body() request: SignPageRequest) {
-
-  }
-}
-
-class SignPageRequest {
-  readonly slug: string;
-  readonly lName: string;
-  readonly fName: string;
-  readonly email: string;
 }

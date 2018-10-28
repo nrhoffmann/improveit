@@ -1,4 +1,4 @@
-import { Schema, Document, Connection } from 'mongoose';
+import { Schema, Document, Connection, Model } from 'mongoose';
 
 import { ConnectionToken, PageModelToken } from 'common/constants';
 
