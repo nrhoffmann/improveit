@@ -17,24 +17,13 @@ describe('Page API', () => {
       imports: [PagesModule],
     })
       .overrideProvider(PageService)
-      .useClass(class implements PageService {
-        exists(slug: string): boolean {
-          switch (slug) {
-            case 'non-existent-page':
-              return false;
-            case 'example-page':
-              return true;
-          }
-
-          throw new Error('Method not implemented.');
-        }
-      })
+      .useValue(instance(mockPageService))
       .compile();
 
     app = mod.createNestApplication();
     await app.init();
   });
-
+  
   it('[GET] /pages', () => {
     return request(app.getHttpServer())
       .get('/pages')
