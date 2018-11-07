@@ -55,7 +55,10 @@ describe('Page API', () => {
     it('should return 200 when :slug can be found', () => {
       return request(app.getHttpServer())
         .get('/pages/example-page')
-        .expect(200);
+        .expect(200)
+        .expect({
+          slug: 'example-page',
+        });
     });
   });
 

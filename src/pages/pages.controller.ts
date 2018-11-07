@@ -17,6 +17,6 @@ export class PagesController {
     if (! this.pages.exists(slug))
       throw new NotFoundException();
 
-    return new Page();
+    return {slug};
   }
 }
