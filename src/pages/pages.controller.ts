@@ -3,7 +3,7 @@ import { Controller, Get, Inject, Param, NotFoundException } from '@nestjs/commo
 import { PageService } from './page.service';
 import { Page } from './page';
 
-@Controller('pages')
+@Controller()
 export class PagesController {
   constructor(private readonly pages: PageService) {}
 
@@ -12,11 +12,14 @@ export class PagesController {
     return[];
   }
 
-  @Get('/:slug')
-  single(@Param('slug') slug: string): Page {
+  @Get(':slug')
+  single(@Param('slug') slug: string) {
     if (! this.pages.exists(slug))
       throw new NotFoundException();
 
-    return {slug};
+    return {
+      slug,
+      signatures: `/pages/${slug}/signatures`,
+    };
   }
 }
