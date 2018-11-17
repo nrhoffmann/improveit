@@ -1,20 +1,15 @@
 import { INestApplication } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
-import * as request from 'supertest';
-import { mock, instance, when } from 'ts-mockito';
-import { RouterModule } from 'nest-router';
+import { Test as Testing } from '@nestjs/testing';
+import { agent, Test } from 'supertest';
 
-import { PagesModule } from './pages.module';
 import { PageService } from './page.service';
-import { PageRoutes } from './page.routes';
 import { RootModule } from '../root.module';
 
 describe('Page API', () => {
   let app: INestApplication;
-  const mockPageService: PageService = mock(PageService);
 
   beforeAll(async () => {
-    const mod = await Test.createTestingModule({
+    const mod = await Testing.createTestingModule({
       imports: [
         RootModule,
       ],
@@ -38,33 +33,52 @@ describe('Page API', () => {
     await app.init();
   });
 
-  it('[GET] /pages', () => {
-    return request(app.getHttpServer())
-      .get('/pages')
-      .expect(200);
+  describe('[GET] /pages', () => {
+    let req: Test;
+
+    beforeAll(() => {
+      req = agent(app.getHttpServer())
+        .get('/pages');
+    });
+    it('should have status code 200', () => {
+      req.expect(200);
+    });
   });
 
   describe('[GET] /pages/:slug', () => {
 
-    beforeAll(() => {
-      when(mockPageService.exists('non-existent-page')).thenReturn(false);
-      when(mockPageService.exists('example-page')).thenReturn(true);
+    describe('when :slug cannot be found', () => {
+      let req: Test;
+
+      beforeAll(() => {
+        req = agent(app.getHttpServer())
+          .get('/pages/non-existent-page');
+      });
+      it('should have status code 404', () => {
+          req.expect(404);
+      });
     });
 
-    it('when :slug cannot be found', () => {
-      return request(app.getHttpServer())
-        .get('/pages/non-existent-page')
-        .expect(404);
-    });
+    describe('when :slug can be found', () => {
+      let req: Test;
 
-    it('when :slug can be found', () => {
-      return request(app.getHttpServer())
-        .get('/pages/example-page')
-        .expect(200)
-        .expect({
+      beforeAll(() => {
+        req = agent(app.getHttpServer())
+        .get('/pages/example-page');
+      });
+      it('should have status code 200', () => {
+          req.expect(200);
+      });
+      it('should contain slug', () => {
+        req.expect({
           slug: 'example-page',
+        });
+      });
+      it('should contain path to its signatures', () => {
+        req.expect({
           signatures: '/pages/example-page/signatures',
         });
+      });
     });
   });
 
